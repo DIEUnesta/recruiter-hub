@@ -57,6 +57,18 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        stats: {
+          purple: "hsl(var(--stats-purple))",
+          orange: "hsl(var(--stats-orange))",
+          green: "hsl(var(--stats-green))",
+          red: "hsl(var(--stats-red))",
+          blue: "hsl(var(--stats-blue))",
+        },
+        progress: {
+          blue: "hsl(var(--progress-blue))",
+          green: "hsl(var(--progress-green))",
+          purple: "hsl(var(--progress-purple))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
