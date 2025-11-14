@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Styles personnalisés Bootstrap */
+@layer base {
+  .bg-purple {
+    background-color: #6f42c1 !important;
+  }
+  
+  .text-purple {
+    color: #6f42c1 !important;
+  }
+  
+  .bg-opacity-10 {
+    --bs-bg-opacity: 0.1;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */

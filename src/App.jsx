@@ -1,16 +1,20 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import RecruiterLayout from "./pages/recruiter/RecruiterLayout";
-import RecruiterDashboard from "./pages/recruiter/RecruiterDashboard";
-import RecruiterCandidates from "./pages/recruiter/RecruiterCandidates";
-import RecruiterStatistics from "./pages/recruiter/RecruiterStatistics";
-import RecruiterQuestionnaires from "./pages/recruiter/RecruiterQuestionnaires";
-import RecruiterProfile from "./pages/recruiter/RecruiterProfile";
+import { Toaster } from '@/components/ui/toaster';
+import { Toaster as Sonner } from '@/components/ui/sonner';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Index from './pages/Index';
+import NotFound from './pages/NotFound';
+import RecruiterLayout from './pages/recruiter/RecruiterLayout';
+import RecruiterDashboard from './pages/recruiter/RecruiterDashboard';
+import RecruiterCandidates from './pages/recruiter/RecruiterCandidates';
+import RecruiterStatistics from './pages/recruiter/RecruiterStatistics';
+import RecruiterQuestionnaires from './pages/recruiter/RecruiterQuestionnaires';
+import RecruiterProfile from './pages/recruiter/RecruiterProfile';
+
+// Import Bootstrap CSS
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const queryClient = new QueryClient();
 
