@@ -28,19 +28,20 @@ const Index = () => {
             <Button
               variant="light"
               size="lg"
-              onClick={() => navigate('/recruteur/dashboard')}
+              onClick={() => navigate('/connexion')}
               className="d-flex align-items-center justify-content-center gap-2 px-5"
             >
-              <i className="bi bi-people"></i>
-              Espace Recruteur
+              <i className="bi bi-box-arrow-in-right"></i>
+              Se connecter
             </Button>
             <Button
               variant="outline-light"
               size="lg"
+              onClick={() => navigate('/inscription')}
               className="d-flex align-items-center justify-content-center gap-2 px-5"
             >
-              <i className="bi bi-person"></i>
-              Espace Candidat
+              <i className="bi bi-person-plus"></i>
+              S'inscrire
             </Button>
           </div>
         </div>

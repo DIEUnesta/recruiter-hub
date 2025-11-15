@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Index from './pages/Index';
 import NotFound from './pages/NotFound';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import RecruiterLayout from './pages/recruiter/RecruiterLayout';
 import RecruiterDashboard from './pages/recruiter/RecruiterDashboard';
 import RecruiterCandidates from './pages/recruiter/RecruiterCandidates';
@@ -26,6 +28,8 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/connexion" element={<Login />} />
+          <Route path="/inscription" element={<Register />} />
           {/* Recruiter Routes */}
           <Route path="/recruteur" element={<RecruiterLayout />}>
             <Route path="dashboard" element={<RecruiterDashboard />} />
