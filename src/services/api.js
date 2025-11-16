@@ -235,6 +235,105 @@ export const activitiesAPI = {
   },
 };
 
+// ==================== API CANDIDAT ====================
+
+export const candidatAPI = {
+  // Dashboard
+  getUserInfo: async () => {
+    const response = await fetch(`${API_BASE_URL}/user`, {
+      method: 'GET',
+      headers: getHeaders(true),
+    });
+    return handleResponse(response);
+  },
+
+  getMyCV: async () => {
+    const response = await fetch(`${API_BASE_URL}/cv/me`, {
+      method: 'GET',
+      headers: getHeaders(true),
+    });
+    return handleResponse(response);
+  },
+
+  getLastInterview: async () => {
+    const response = await fetch(`${API_BASE_URL}/entretien/me`, {
+      method: 'GET',
+      headers: getHeaders(true),
+    });
+    return handleResponse(response);
+  },
+
+  // CV Management
+  uploadCV: async (formData) => {
+    const token = getAuthToken();
+    const response = await fetch(`${API_BASE_URL}/cv/upload-pdf`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json',
+      },
+      body: formData, // FormData automatically sets Content-Type
+    });
+    return handleResponse(response);
+  },
+
+  submitCVForm: async (data) => {
+    const response = await fetch(`${API_BASE_URL}/cv/submit-form`, {
+      method: 'POST',
+      headers: getHeaders(true),
+      body: JSON.stringify(data),
+    });
+    return handleResponse(response);
+  },
+
+  validateCV: async () => {
+    const response = await fetch(`${API_BASE_URL}/cv/validate`, {
+      method: 'POST',
+      headers: getHeaders(true),
+    });
+    return handleResponse(response);
+  },
+
+  // Quiz/Entretien
+  getQuizQuestions: async () => {
+    const response = await fetch(`${API_BASE_URL}/entretien/questions`, {
+      method: 'GET',
+      headers: getHeaders(true),
+    });
+    return handleResponse(response);
+  },
+
+  submitQuiz: async (answers) => {
+    const response = await fetch(`${API_BASE_URL}/entretien/submit`, {
+      method: 'POST',
+      headers: getHeaders(true),
+      body: JSON.stringify(answers),
+    });
+    return handleResponse(response);
+  },
+
+  getInterviewResult: async (id) => {
+    const response = await fetch(`${API_BASE_URL}/entretien/result/${id}`, {
+      method: 'GET',
+      headers: getHeaders(true),
+    });
+    return handleResponse(response);
+  },
+
+  downloadInterviewXML: async (id) => {
+    const response = await fetch(`${API_BASE_URL}/entretien/xml/${id}`, {
+      method: 'GET',
+      headers: getHeaders(true),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Erreur lors du téléchargement du XML');
+    }
+    
+    return response.blob();
+  },
+};
+
 // Export par défaut
 export default {
   auth: authAPI,
@@ -242,4 +341,5 @@ export default {
   stats: statsAPI,
   questionnaires: questionnairesAPI,
   activities: activitiesAPI,
+  candidat: candidatAPI,
 };
