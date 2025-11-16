@@ -13,6 +13,13 @@ import RecruiterCandidates from './pages/recruiter/RecruiterCandidates';
 import RecruiterStatistics from './pages/recruiter/RecruiterStatistics';
 import RecruiterQuestionnaires from './pages/recruiter/RecruiterQuestionnaires';
 import RecruiterProfile from './pages/recruiter/RecruiterProfile';
+import CandidatLayout from './pages/candidat/CandidatLayout';
+import CandidatDashboard from './pages/candidat/CandidatDashboard';
+import FormulaireCV from './pages/candidat/FormulaireCV';
+import UploadCV from './pages/candidat/UploadCV';
+import ValidationCV from './pages/candidat/ValidationCV';
+import Quiz from './pages/candidat/Quiz';
+import ResultatEntretien from './pages/candidat/ResultatEntretien';
 
 // Import Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -31,12 +38,23 @@ const App = () => (
           <Route path="/connexion" element={<Login />} />
           <Route path="/inscription" element={<Register />} />
           {/* Recruiter Routes */}
+          {/* Recruiter Routes */}
           <Route path="/recruteur" element={<RecruiterLayout />}>
             <Route path="dashboard" element={<RecruiterDashboard />} />
             <Route path="candidats" element={<RecruiterCandidates />} />
             <Route path="statistiques" element={<RecruiterStatistics />} />
             <Route path="questionnaires" element={<RecruiterQuestionnaires />} />
             <Route path="profil" element={<RecruiterProfile />} />
+          </Route>
+          {/* Candidat Routes */}
+          <Route path="/candidat" element={<CandidatLayout />}>
+            <Route path="dashboard" element={<CandidatDashboard />} />
+            <Route path="cv" element={<FormulaireCV />} />
+            <Route path="upload" element={<UploadCV />} />
+            <Route path="validation" element={<ValidationCV />} />
+            <Route path="quiz" element={<Quiz />} />
+            <Route path="resultats" element={<ResultatEntretien />} />
+            <Route path="resultats/:id" element={<ResultatEntretien />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

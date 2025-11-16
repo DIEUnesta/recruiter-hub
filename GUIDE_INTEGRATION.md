@@ -1,4 +1,4 @@
-# 📚 Guide d'Intégration - Système Recruteur VirtueHire
+# 📚 Guide d'Intégration - Système VirtueHire (Recruteur + Candidat)
 
 ## 🎯 Vue d'ensemble
 
@@ -7,6 +7,7 @@ Votre application est maintenant complète avec :
 - ✅ **Connexion** (`/connexion`)
 - ✅ **Inscription** (`/inscription`)
 - ✅ **Espace Recruteur** (`/recruteur/*`)
+- ✅ **Espace Candidat** (`/candidat/*`) ✨ NOUVEAU
 
 ---
 
@@ -16,27 +17,37 @@ Votre application est maintenant complète avec :
 src/
 ├── pages/
 │   ├── Index.jsx                    # Page d'accueil
-│   ├── Login.jsx                    # Page de connexion ✨ NOUVEAU
-│   ├── Register.jsx                 # Page d'inscription ✨ NOUVEAU
+│   ├── Login.jsx                    # Page de connexion
+│   ├── Register.jsx                 # Page d'inscription
 │   ├── NotFound.jsx                 # Page 404
-│   └── recruiter/
-│       ├── RecruiterLayout.jsx      # Layout avec sidebar
-│       ├── RecruiterDashboard.jsx   # Dashboard principal
-│       ├── RecruiterCandidates.jsx  # Liste des candidats
-│       ├── RecruiterStatistics.jsx  # Statistiques
-│       ├── RecruiterQuestionnaires.jsx # Questionnaires
-│       └── RecruiterProfile.jsx     # Profil du recruteur
+│   ├── recruiter/
+│   │   ├── RecruiterLayout.jsx      # Layout avec sidebar
+│   │   ├── RecruiterDashboard.jsx   # Dashboard principal
+│   │   ├── RecruiterCandidates.jsx  # Liste des candidats
+│   │   ├── RecruiterStatistics.jsx  # Statistiques
+│   │   ├── RecruiterQuestionnaires.jsx # Questionnaires
+│   │   └── RecruiterProfile.jsx     # Profil du recruteur
+│   └── candidat/                    # ✨ NOUVEAU
+│       ├── CandidatLayout.jsx       # Layout avec sidebar
+│       ├── CandidatDashboard.jsx    # Dashboard candidat
+│       ├── FormulaireCV.jsx         # Formulaire CV
+│       ├── UploadCV.jsx             # Upload CV PDF
+│       ├── ValidationCV.jsx         # Validation des données
+│       ├── Quiz.jsx                 # Quiz d'entretien
+│       └── ResultatEntretien.jsx    # Résultats entretien
 ├── components/
 │   ├── NavLink.jsx                  # Composant de navigation
-│   └── recruiter/
-│       ├── RecruiterSidebar.jsx     # Sidebar navigation
-│       ├── StatsCard.jsx            # Carte de statistiques
-│       ├── ActivityFeed.jsx         # Flux d'activités
-│       ├── SystemStats.jsx          # Stats système
-│       ├── CandidateTable.jsx       # Tableau des candidats
-│       └── CandidateDetailsModal.jsx # Modal détails candidat
+│   ├── recruiter/
+│   │   ├── RecruiterSidebar.jsx     # Sidebar navigation
+│   │   ├── StatsCard.jsx            # Carte de statistiques
+│   │   ├── ActivityFeed.jsx         # Flux d'activités
+│   │   ├── SystemStats.jsx          # Stats système
+│   │   ├── CandidateTable.jsx       # Tableau des candidats
+│   │   └── CandidateDetailsModal.jsx # Modal détails candidat
+│   └── candidat/                    # ✨ NOUVEAU
+│       └── CandidatSidebar.jsx      # Sidebar navigation candidat
 ├── services/
-│   └── api.js                       # Service API centralisé ✨ NOUVEAU
+│   └── api.js                       # Service API centralisé (recruteur + candidat)
 └── App.jsx                          # Configuration des routes
 ```
 
@@ -44,16 +55,32 @@ src/
 
 ## 🚀 Routes disponibles
 
+### Routes Publiques
 | Route | Description | Statut |
 |-------|-------------|--------|
 | `/` | Page d'accueil | ✅ Fonctionnel |
-| `/connexion` | Connexion recruteur | ✅ Nouveau |
-| `/inscription` | Inscription recruteur | ✅ Nouveau |
+| `/connexion` | Connexion (recruteur/candidat) | ✅ Fonctionnel |
+| `/inscription` | Inscription (recruteur/candidat) | ✅ Fonctionnel |
+
+### Routes Recruteur
+| Route | Description | Statut |
+|-------|-------------|--------|
 | `/recruteur/dashboard` | Dashboard recruteur | ✅ Fonctionnel |
 | `/recruteur/candidats` | Liste des candidats | ✅ Fonctionnel |
 | `/recruteur/statistiques` | Statistiques | ✅ Fonctionnel |
 | `/recruteur/questionnaires` | Questionnaires | ✅ Fonctionnel |
 | `/recruteur/profil` | Profil recruteur | ✅ Fonctionnel |
+
+### Routes Candidat ✨ NOUVEAU
+| Route | Description | Statut |
+|-------|-------------|--------|
+| `/candidat/dashboard` | Dashboard candidat | ✅ Nouveau |
+| `/candidat/cv` | Formulaire CV | ✅ Nouveau |
+| `/candidat/upload` | Upload CV PDF | ✅ Nouveau |
+| `/candidat/validation` | Validation CV | ✅ Nouveau |
+| `/candidat/quiz` | Quiz d'entretien | ✅ Nouveau |
+| `/candidat/resultats` | Résultats entretien | ✅ Nouveau |
+| `/candidat/resultats/:id` | Résultat spécifique | ✅ Nouveau |
 
 ---
 
@@ -88,6 +115,8 @@ use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\StatsController;
 use App\Http\Controllers\QuestionnaireController;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\CVController;
+use App\Http\Controllers\EntretienController;
 
 // Authentification (publiques)
 Route::post('/login', [AuthController::class, 'login']);
@@ -98,6 +127,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // Auth
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user', [AuthController::class, 'getCurrentUser']);
+    
+    // ========== ROUTES RECRUTEUR ==========
     
     // Candidats
     Route::get('/candidates', [CandidateController::class, 'index']);
@@ -115,6 +146,23 @@ Route::middleware('auth:sanctum')->group(function () {
     
     // Activités
     Route::get('/activities', [ActivityController::class, 'recent']);
+    
+    // ========== ROUTES CANDIDAT ✨ NOUVEAU ==========
+    
+    // Dashboard Candidat
+    Route::get('/cv/me', [CVController::class, 'getMyCV']);
+    Route::get('/entretien/me', [EntretienController::class, 'getLastInterview']);
+    
+    // Gestion CV
+    Route::post('/cv/upload-pdf', [CVController::class, 'uploadPDF']);
+    Route::post('/cv/submit-form', [CVController::class, 'submitForm']);
+    Route::post('/cv/validate', [CVController::class, 'validate']);
+    
+    // Quiz / Entretien
+    Route::get('/entretien/questions', [EntretienController::class, 'getQuestions']);
+    Route::post('/entretien/submit', [EntretienController::class, 'submitAnswers']);
+    Route::get('/entretien/result/{id}', [EntretienController::class, 'getResult']);
+    Route::get('/entretien/xml/{id}', [EntretienController::class, 'downloadXML']);
 });
 ```
 
